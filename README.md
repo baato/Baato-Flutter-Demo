@@ -21,7 +21,7 @@ This is a public demo of the Baato App for Flutter. This app shows the way to in
 ### Running locally
 
 #### 1. Setting the Baato access token
-This demo app requires a Baato account and a Baato access token. Obtain your access token on the [Baato account page](http://baato.io/). Paste your access token in the styleString in the `main.dart` file.
+This demo app requires a Baato account and a Baato access token. Obtain your access token on the [Baato account page](http://baato.io/). Paste your access token in the `styleString` in the `main.dart` file.
 
 ```
  styleString: "https://api.baato.io/api/v1/styles/"+mapStyle+"?key="+baatoAccessToken
