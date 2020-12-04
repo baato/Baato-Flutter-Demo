@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^0.1.3
   mapbox_gl: ^0.8.0
   http: ^0.12.2
+  baato_api: ^0.0.4
 
 dev_dependencies:
   flutter_test:
