@@ -31,6 +31,17 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
 
   void _onMapCreated(MapboxMapController controller) {
     this.mapController = controller;
+
+    //show initial information
+    final snackBar = SnackBar(
+      content: Text("Tap on any point on the map to get location details of that point... " ,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      duration: Duration(seconds: 12),
+    );
+
+    // Find the Scaffold in the widget tree and use it to show a SnackBar.
+    Scaffold.of(context).showSnackBar(snackBar);
   }
 
   @override
@@ -56,7 +67,7 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
       initialCameraPosition: const CameraPosition(
           target: LatLng(27.7192873, 85.3238007), zoom: 14.0),
           styleString: "https://api.baato.io/api/v1/styles/" + mapStyle + "?key=" + baatoAccessToken,
-    ));
+    ),);
   }
 
   _requestLocationDetails(BuildContext context, LatLng latLng, String baatoAccessToken) async {
@@ -73,6 +84,7 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
       placeResponse = response;
     });
 
+    //add circle layer to indicate the tapped point in the map
     mapController.clearCircles();
     mapController.addCircle(
       CircleOptions(
