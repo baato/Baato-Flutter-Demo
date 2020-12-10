@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
+import '../main.dart';
+
 class RetroMapStyle extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -26,8 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    /*Please add your baato-access-token to load map*/
-    String baatoAccessToken="your-baato-access-token";
+    String baatoAccessToken = BaatoExampleApp.BAATO_ACCESS_TOKEN;
     String mapStyle="retro";
 
     return new Scaffold(

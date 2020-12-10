@@ -8,10 +8,13 @@ import 'package:flutter_app/ui/monochrome_map.dart';
 import 'package:flutter_app/ui/retro_map.dart';
 
 void main() {
-  runApp(ListViewApp());
+  runApp(BaatoExampleApp());
 }
 
-class ListViewApp extends StatelessWidget {
+class BaatoExampleApp extends StatelessWidget {
+  /*Please add your baato-access-token here*/
+  static const String BAATO_ACCESS_TOKEN = "your-baato-access-token";
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,7 +34,6 @@ class _ListScreenState extends State<ListScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     homeMenus.add(new HomeMenu(title: "Search", subTitle: "Example for Baato Search API"));
     homeMenus.add(new HomeMenu(title: "Reverse", subTitle: "Example for Baato Reverse Search API"));
@@ -43,7 +45,6 @@ class _ListScreenState extends State<ListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text("Baato Flutter"),
@@ -60,7 +61,6 @@ class StringList extends StatelessWidget {
   StringList({@required this.homeMenus});
 
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ListView.separated(
       itemCount: homeMenus.length,
       separatorBuilder: (BuildContext context, int index) => Divider(
