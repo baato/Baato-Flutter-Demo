@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/models/utils.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
+import '../main.dart';
+
 class BaatoDirectionsExample extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -31,9 +33,8 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
   MapboxMapController mapController;
   RouteResponse routeResponse;
   int _circleCount = 0;
-  
-  /*Please add your baato-access-token to load map*/
-  String baatoAccessToken="your-baato-access-token";
+
+  String baatoAccessToken = BaatoExampleApp.BAATO_ACCESS_TOKEN;
   List<LatLng> _points = List<LatLng>();
 
   void _onMapCreated(MapboxMapController controller) {

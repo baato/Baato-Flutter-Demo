@@ -1,6 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:baato_api/baato_api.dart';
 import 'package:baato_api/models/place.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_app/main.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 class BaatoReverseExample extends StatelessWidget {
@@ -34,7 +38,8 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
 
     //show initial information
     final snackBar = SnackBar(
-      content: Text("Tap on any point on the map to get location details of that point... " ,
+      content: Text(
+        "Tap on any point on the map to get location details of that point... ",
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       duration: Duration(seconds: 12),
@@ -44,33 +49,46 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
+  void _onStyleLoaded() {
+    // addImageFromAsset("assetImage", "assets/symbols/placeholder.png");
+  }
+
+  /// Adds an asset image to the currently displayed style
+  Future<void> addImageFromAsset(String name, String assetName) async {
+    final ByteData bytes = await rootBundle.load(assetName);
+    final Uint8List list = bytes.buffer.asUint8List();
+    return mapController.addImage(name, list);
+  }
+
   @override
   Widget build(BuildContext context) {
     /*map style can be 'retro','breeze','monochrome'*/
-    /*Please add your baato-access-token to load map*/
-    String baatoAccessToken="your-baato-access-token";
+    String baatoAccessToken = BaatoExampleApp.BAATO_ACCESS_TOKEN;
     String mapStyle = "retro";
 
     return new Scaffold(
-        body: MapboxMap(
-      accessToken: '',
-      onMapCreated: _onMapCreated,
-      onMapClick: (point, latLng) async {
-        print("Map click: ${point.x},${point.y}   ${latLng.latitude}/${latLng.longitude}");
-        mapController.moveCamera(
-          CameraUpdate.newLatLng(
-            latLng,
-          ),
-        );
-        _requestLocationDetails(context, latLng,baatoAccessToken);
-      },
-      initialCameraPosition: const CameraPosition(
-          target: LatLng(27.7192873, 85.3238007), zoom: 14.0),
-          styleString: "https://api.baato.io/api/v1/styles/" + mapStyle + "?key=" + baatoAccessToken,
-    ),);
+      body: MapboxMap(
+        accessToken: '',
+        onMapCreated: _onMapCreated,
+        onStyleLoadedCallback: _onStyleLoaded,
+        onMapClick: (point, latLng) async {
+          mapController.moveCamera(
+            CameraUpdate.newLatLng(
+              latLng,
+            ),
+          );
+          _showMarkerOntheTappedLocation(latLng);
+          _requestLocationDetails(context, latLng, baatoAccessToken);
+        },
+        initialCameraPosition: const CameraPosition(
+            target: LatLng(27.7192873, 85.3238007), zoom: 14.0),
+        styleString: "https://api.baato.io/api/v1/styles/" + mapStyle + "?key=" + baatoAccessToken,
+      ),
+    );
   }
 
-  _requestLocationDetails(BuildContext context, LatLng latLng, String baatoAccessToken) async {
+  _requestLocationDetails(
+      BuildContext context, LatLng latLng, String baatoAccessToken) async {
     BaatoReverse baatoReverse = BaatoReverse.initialize(
       latLon: GeoCoord(latLng.latitude, latLng.longitude),
       accessToken: baatoAccessToken,
@@ -83,17 +101,6 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
     setState(() {
       placeResponse = response;
     });
-
-    //add circle layer to indicate the tapped point in the map
-    mapController.clearCircles();
-    mapController.addCircle(
-      CircleOptions(
-          geometry: latLng,
-          circleColor: "#081E2A",
-          circleRadius: 10.0,
-          circleStrokeColor: '#757575',
-          circleStrokeWidth: 5.0),
-    );
 
     _showAddressInfo(response);
   }
@@ -111,5 +118,21 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
       // Find the Scaffold in the widget tree and use it to show a SnackBar.
       Scaffold.of(context).showSnackBar(snackBar);
     }
+  }
+
+  void _showMarkerOntheTappedLocation(LatLng latLng) {
+    if (mapController.symbols.isEmpty)
+      mapController.addSymbol(
+        SymbolOptions(
+          geometry: latLng,
+          iconImage: "assets/symbols/placeholder.png",
+        ),
+      );
+    else
+      mapController.updateSymbol(
+          mapController.symbols.first,
+          SymbolOptions(
+            geometry: latLng,
+          ));
   }
 }

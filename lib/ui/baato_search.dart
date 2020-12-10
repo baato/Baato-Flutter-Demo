@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:baato_api/baato_api.dart';
 import 'package:baato_api/models/search.dart';
 
+import '../main.dart';
+
 class BaatoSearchExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -85,8 +87,7 @@ class _SearchListViewExampleState extends State<SearchListViewExample> {
     });
     tempList = List<Search>();
 
-    String baatoAccessToken = "your-baato-access-token";
-
+    String baatoAccessToken = BaatoExampleApp.BAATO_ACCESS_TOKEN;
     BaatoSearch baatoSearch = BaatoSearch.initialize(
       query: query,
       accessToken: baatoAccessToken,
