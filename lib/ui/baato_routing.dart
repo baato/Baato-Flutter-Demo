@@ -42,7 +42,8 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
 
     //show initial information
     final snackBar = SnackBar(
-      content: Text("Tap on any two points in the map to get routes between them... " ,
+      content: Text(
+        "Tap on any two points in the map to get routes between them... ",
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       duration: Duration(seconds: 12),
@@ -61,19 +62,22 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
       accessToken: '',
       onMapCreated: _onMapCreated,
       onMapClick: (point, latLng) async {
-        print("Map click: ${point.x},${point.y}   ${latLng.latitude}/${latLng.longitude}");
         _addTappedPointToPointsList(context, latLng);
       },
       initialCameraPosition: const CameraPosition(
           target: LatLng(27.7192873, 85.3238007), zoom: 14.0),
-          styleString: "https://api.baato.io/api/v1/styles/" + mapStyle + "?key=" + baatoAccessToken,
+      styleString: "https://api.baato.io/api/v1/styles/" +
+          mapStyle +
+          "?key=" +
+          baatoAccessToken,
     ));
   }
 
   _requestRoutingDetails(BuildContext context, List<LatLng> latLngList) async {
     var points = [];
     for (LatLng latLng in latLngList)
-      points.add(latLng.latitude.toString() + "," + latLng.longitude.toString());
+      points
+          .add(latLng.latitude.toString() + "," + latLng.longitude.toString());
 
     BaatoRoute baatoRoute = BaatoRoute.initialize(
         accessToken: baatoAccessToken,
@@ -95,10 +99,11 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
       print("No result found");
     else {
       //decode the encoded polyline
-      List<GeoCoord> geoCoordinates = BaatoUtils().decodeEncodedPolyline(response.data[0].encodedPolyline);
+      List<GeoCoord> geoCoordinates =
+          BaatoUtils().decodeEncodedPolyline(response.data[0].encodedPolyline);
 
       //convert the list into list of LatLng to be used by Mapbox
-      List<LatLng> latLngList = List<LatLng>();
+      List<LatLng> latLngList = <LatLng>[];
       for (GeoCoord geoCoord in geoCoordinates)
         latLngList.add(new LatLng(geoCoord.lat, geoCoord.lon));
 
@@ -116,11 +121,17 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
       distanceInKm = double.parse((distanceInKm).toStringAsFixed(2));
 
       double timeInSeconds = response.data[0].timeInMs / 1000;
-      String displayTime = Utils().giveMeTimeFromSecondsFormat(timeInSeconds.toInt());
+      String displayTime =
+          Utils().giveMeTimeFromSecondsFormat(timeInSeconds.toInt());
 
       //create a snack bar to show more details of the route
       final snackBar = SnackBar(
-        content: Text("Distance: " + distanceInKm.toString() + " km\n" + "Time: " + displayTime,
+        content: Text(
+          "Distance: " +
+              distanceInKm.toString() +
+              " km\n" +
+              "Time: " +
+              displayTime,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         duration: Duration(seconds: 10),
@@ -141,12 +152,12 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
       mapController.clearCircles();
       mapController.clearLines();
       _circleCount = 0;
-      _points = List<LatLng>();
+      _points = <LatLng>[];
       _addTappedPointToPointsList(context, latLng);
     }
   }
 
-  // add circle layer to indicate start and destnation points
+  // add circle layer to indicate start and destination points
   void _addCircle(LatLng latLng) {
     String circleColor = "#081E2A";
     if (_circleCount == 1) circleColor = "#63A088";

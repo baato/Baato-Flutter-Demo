@@ -26,8 +26,8 @@ class SearchListViewExample extends StatefulWidget {
 }
 
 class _SearchListViewExampleState extends State<SearchListViewExample> {
-  List<Search> searchResults = List<Search>();
-  List<Search> tempList = List<Search>();
+  List<Search> searchResults = <Search>[];
+  List<Search> tempList = <Search>[];
   bool isLoading = false;
 
   @override
@@ -71,10 +71,11 @@ class _SearchListViewExampleState extends State<SearchListViewExample> {
               itemCount: searchResults.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                    title: Text(searchResults[index].name,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                  subtitle:  Text(searchResults[index].address),
+                  title: Text(
+                    searchResults[index].name,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text(searchResults[index].address),
                   leading: Icon(Icons.location_pin),
                 );
               }),
@@ -85,7 +86,7 @@ class _SearchListViewExampleState extends State<SearchListViewExample> {
     setState(() {
       isLoading = true;
     });
-    tempList = List<Search>();
+    tempList = <Search>[];
 
     String baatoAccessToken = BaatoExampleApp.BAATO_ACCESS_TOKEN;
     BaatoSearch baatoSearch = BaatoSearch.initialize(
