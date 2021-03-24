@@ -77,8 +77,8 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
               latLng,
             ),
           );
-          _showMarkerOntheTappedLocation(latLng);
           _requestLocationDetails(context, latLng, baatoAccessToken);
+          _showMarkerOntheTappedLocation(latLng);
         },
         initialCameraPosition: const CameraPosition(
             target: LatLng(27.7192873, 85.3238007), zoom: 14.0),
@@ -87,8 +87,8 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
     );
   }
 
-  _requestLocationDetails(
-      BuildContext context, LatLng latLng, String baatoAccessToken) async {
+  _requestLocationDetails(BuildContext context, LatLng latLng,
+      String baatoAccessToken) async {
     BaatoReverse baatoReverse = BaatoReverse.initialize(
       latLon: GeoCoord(latLng.latitude, latLng.longitude),
       accessToken: baatoAccessToken,
@@ -111,9 +111,9 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
     else {
       final snackBar = SnackBar(
           content: Text(
-        response.data[0].name + "\n" + response.data[0].address,
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ));
+            response.data[0].name + "\n" + response.data[0].address,
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ));
 
       // Find the Scaffold in the widget tree and use it to show a SnackBar.
       Scaffold.of(context).showSnackBar(snackBar);
@@ -121,18 +121,13 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
   }
 
   void _showMarkerOntheTappedLocation(LatLng latLng) {
-    if (mapController.symbols.isEmpty)
-      mapController.addSymbol(
-        SymbolOptions(
-          geometry: latLng,
-          iconImage: "assets/symbols/placeholder.png",
-        ),
-      );
-    else
-      mapController.updateSymbol(
-          mapController.symbols.first,
-          SymbolOptions(
-            geometry: latLng,
-          ));
+    if (mapController.symbols.isNotEmpty)
+      mapController.removeSymbol(mapController.symbols.first);
+    mapController.addSymbol(
+      new SymbolOptions(
+        geometry: latLng,
+        iconImage: "assets/images/ic_marker.png",
+      ),
+    );
   }
 }

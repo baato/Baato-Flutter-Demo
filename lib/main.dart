@@ -30,7 +30,7 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-  List<HomeMenu> homeMenus = new List();
+  List<HomeMenu> homeMenus = [];
 
   @override
   void initState() {
