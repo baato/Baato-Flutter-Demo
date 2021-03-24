@@ -45,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 target: LatLng(27.7192873, 85.3238007), zoom: 14.0),
             styleString: "https://api.baato.io/api/v1/styles/" + mapStyle + "?key=" + baatoAccessToken,
           ),
+          //add Baato logo
           Align(
             child: Container(
               child: SizedBox(
