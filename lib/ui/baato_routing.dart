@@ -3,6 +3,7 @@ import 'package:baato_api/models/place.dart';
 import 'package:baato_api/models/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/utils.dart';
+import 'package:flutter_app/ui/baato_navigation.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 import '../main.dart';
@@ -35,7 +36,7 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
   int _circleCount = 0;
 
   String baatoAccessToken = BaatoExampleApp.BAATO_ACCESS_TOKEN;
-  List<LatLng> _points = List<LatLng>();
+  List<LatLng> _points = [];
 
   void _onMapCreated(MapboxMapController controller) {
     this.mapController = controller;
@@ -133,6 +134,16 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
               "Time: " +
               displayTime,
           style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        action: SnackBarAction(
+          label: 'Start',
+          onPressed: () {
+            // Some code to undo the change.
+            if(_points.isNotEmpty&&_points.length!=1)
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => BaatoNavigation(_points.last)));
+            else
+              print("no destination selected points size ${_points.length}");
+          },
         ),
         duration: Duration(seconds: 10),
       );
