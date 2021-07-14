@@ -1,14 +1,13 @@
-import 'package:baato_navigation/library.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:mapbox_gl_platform_interface/mapbox_gl_platform_interface.dart';
+import 'package:navigationbaato/library.dart';
 
 class BaatoNavigation extends StatefulWidget {
-  LatLng destinationPoint;
-  BaatoNavigation(LatLng last){
-    this.destinationPoint=last;
-  }
+  // LatLng destinationPoint;
+  // BaatoNavigation(LatLng last){
+  //   this.destinationPoint=last;
+  // }
 
   @override
   _BaatoNavigationState createState() => _BaatoNavigationState();
@@ -74,178 +73,31 @@ class _BaatoNavigationState extends State<BaatoNavigation> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        RaisedButton(
+                        ElevatedButton(
                           child: Text("Start A to B"),
                           onPressed: () async {
-                            var wayPoints = List<WayPoint>();
+                            var wayPoints = <WayPoint>[];
                             wayPoints.add(_origin);
                             wayPoints.add(_stop1);
 
                             await _directions.startNavigation(
                                 wayPoints: wayPoints,
-                                options: MapBoxOptions(
-                                    mode:
-                                    BaatoNavigationMode.car,
-                                    simulateRoute: true,
-                                    language: "en",
-                                    units: VoiceUnits.metric));
+                                options: _options);
                           },
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        RaisedButton(
-                          child: Text("Start Multi Stop"),
-                          onPressed: () async {
-                            _isMultipleStop = true;
-                            var wayPoints = List<WayPoint>();
-                            wayPoints.add(_origin);
-                            wayPoints.add(_stop1);
-                            wayPoints.add(_origin);
-
-                            await _directions.startNavigation(
-                                wayPoints: wayPoints,
-                                options: MapBoxOptions(
-                                    mode: BaatoNavigationMode.car,
-                                    simulateRoute: true,
-                                    language: "en",
-                                    allowsUTurnAtWayPoints: true,
-                                    units: VoiceUnits.metric));
-                          },
-                        )
                       ],
-                    ),
-                    Container(
-                      color: Colors.grey,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: (Text(
-                          "Embedded Navigation",
-                          style: TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        )),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        RaisedButton(
-                          child: Text(_routeBuilt && !_isNavigating
-                              ? "Clear Route"
-                              : "Build Route"),
-                          onPressed: _isNavigating
-                              ? null
-                              : () {
-                            if (_routeBuilt) {
-                              _controller.clearRoute();
-                            } else {
-                              var wayPoints = List<WayPoint>();
-                              wayPoints.add(_origin);
-                              wayPoints.add(_stop1);
-                              wayPoints.add(_origin);
-                              _isMultipleStop = wayPoints.length > 2;
-                              _controller.buildRoute(
-                                  wayPoints: wayPoints);
-                            }
-                          },
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        RaisedButton(
-                          child: Text("Start "),
-                          onPressed: _routeBuilt && !_isNavigating
-                              ? () {
-                            _controller.startNavigation();
-                          }
-                              : null,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        RaisedButton(
-                          child: Text("Cancel "),
-                          onPressed: _isNavigating
-                              ? () {
-                            _controller.finishNavigation();
-                          }
-                              : null,
-                        )
-                      ],
-                    ),
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          "Long-Press Embedded Map to Set Destination",
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      color: Colors.grey,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: EdgeInsets.all(10),
-                        child: (Text(
-                          _instruction == null || _instruction.isEmpty
-                              ? "Banner Instruction Here"
-                              : _instruction,
-                          style: TextStyle(color: Colors.white),
-                          textAlign: TextAlign.center,
-                        )),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          left: 20.0, right: 20, top: 20, bottom: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Text("Duration Remaining: "),
-                              Text(_durationRemaining != null
-                                  ? "${(_durationRemaining / 60).toStringAsFixed(0)} minutes"
-                                  : "---")
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Text("Distance Remaining: "),
-                              Text(_distanceRemaining != null
-                                  ? "${(_distanceRemaining * 0.000621371).toStringAsFixed(1)} miles"
-                                  : "---")
-                            ],
-                          ),
-                        ],
-                      ),
                     ),
                     Divider()
                   ],
                 ),
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                color: Colors.grey,
-                child: MapBoxNavigationView(
-                    options: _options,
-                    onRouteEvent: _onEmbeddedRouteEvent,
-                    onCreated:
-                        (MapBoxNavigationViewController controller) async {
-                      _controller = controller;
-                      controller.initialize();
-                    }),
-              ),
-            )
           ]),
         ),
       ),
     );
   }
+
 
   Future<Position> _determinePosition() async {
     bool serviceEnabled;
@@ -292,17 +144,14 @@ class _BaatoNavigationState extends State<BaatoNavigation> {
           latitude: position.latitude,
           longitude: position.longitude);
     });
+    print("current location ${position.latitude} , ${position.longitude}");
     initialize(position.latitude, position.longitude);
     return position;
   }
 // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initialize(double latitude, double longitude) async {
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
-
-    print('initialize ');
+    print('initialize lat long');
     _directions = Navigationbaato(onRouteEvent: _onEmbeddedRouteEvent);
     _options = MapBoxOptions(
       initialLatitude: _origin.latitude,
@@ -337,33 +186,6 @@ class _BaatoNavigationState extends State<BaatoNavigation> {
 
     //build navigation
     // callNavigationSDK();
-  }
-
-  Future<void> callNavigationSDK() async {
-    List<WayPoint> wayPoints = [];
-    wayPoints.add(_origin);
-    final destination = WayPoint(
-        name: "Way Point 2",
-        latitude: widget.destinationPoint.latitude,
-        longitude: widget.destinationPoint.longitude);
-    wayPoints.add(destination);
-
-    _controller.initialize();
-    _controller.buildRoute(wayPoints: wayPoints,options: MapBoxOptions(
-        mode:
-        BaatoNavigationMode.car,
-        simulateRoute: true,
-        language: "en",
-        units: VoiceUnits.metric));
-
-    // await _directions.startNavigation(
-    //     wayPoints: wayPoints,
-    //     options: MapBoxOptions(
-    //         mode:
-    //         BaatoNavigationMode.car,
-    //         simulateRoute: true,
-    //         language: "en",
-    //         units: VoiceUnits.metric));
   }
 
   Future<void> _onEmbeddedRouteEvent(e) async {

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/home_menu.dart';
+import 'package:flutter_app/ui/baato_navigation.dart';
 import 'package:flutter_app/ui/baato_reverse.dart';
 import 'package:flutter_app/ui/baato_routing.dart';
 import 'package:flutter_app/ui/baato_search.dart';
 import 'package:flutter_app/ui/breeze_map.dart';
 import 'package:flutter_app/ui/monochrome_map.dart';
 import 'package:flutter_app/ui/retro_map.dart';
+// import 'package:mapbox_gl/mapbox_gl.dart';
 
 void main() {
   runApp(BaatoExampleApp());
@@ -19,7 +21,7 @@ class BaatoExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ListScreen(),
+      home: BaatoNavigation(),
     );
   }
 }
@@ -72,44 +74,44 @@ class StringList extends StatelessWidget {
           subtitle: Text('${homeMenus[index].subTitle}'),
           trailing: Icon(Icons.chevron_right),
           onTap: () {
-            switch (index) {
-              case 0:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BaatoSearchExample()),
-                );
-                break;
-              case 1:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BaatoReverseExample()),
-                );
-                break;
-              case 2:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BaatoDirectionsExample()),
-                );
-                break;
-              case 3:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BreezeMapStyle()),
-                );
-                break;
-              case 4:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MonochromeMapStyle()),
-                );
-                break;
-              case 5:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RetroMapStyle()),
-                );
-                break;
-            }
+            // switch (index) {
+            //   case 0:
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => BaatoSearchExample()),
+            //     );
+            //     break;
+            //   case 1:
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => BaatoReverseExample()),
+            //     );
+            //     break;
+            //   case 2:
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => BaatoDirectionsExample()),
+            //     );
+            //     break;
+            //   case 3:
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => BreezeMapStyle()),
+            //     );
+            //     break;
+            //   case 4:
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => MonochromeMapStyle()),
+            //     );
+            //     break;
+            //   case 5:
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(builder: (context) => RetroMapStyle()),
+            //     );
+            //     break;
+            // }
           },
         );
       },
