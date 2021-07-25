@@ -22,8 +22,8 @@ class _BaatoNavigationState extends State<BaatoNavigation> {
       longitude: 85.3240);
   final _stop1 = WayPoint(
       name: "Way Point 2",
-      latitude: 27.7172,
-      longitude: 86.3240);
+      latitude: 27.6172,
+      longitude: 85.8240);
 
   Navigationbaato _directions;
   MapBoxOptions _options;
@@ -82,7 +82,8 @@ class _BaatoNavigationState extends State<BaatoNavigation> {
 
                             await _directions.startNavigation(
                                 wayPoints: wayPoints,
-                                options: _options);
+                                options: _options,
+                            );
                           },
                         ),
                       ],

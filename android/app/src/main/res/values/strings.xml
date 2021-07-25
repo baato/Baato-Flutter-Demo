@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="baato_access_token" translatable="false"></string>
+    <string name="baato_access_token" translatable="false">bpk.TqpOIK5KflKR_zEI0ONEVdCZmwmfMye9i67nAjsGlMgQ</string>
     <string name="baato_default_style" translatable="false">https://api.baato.io/api/v1/styles/breeze</string>
 </resources>

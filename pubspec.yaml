@@ -33,8 +33,8 @@ dependencies:
   baato_api: ^0.0.5
   url_launcher: ^6.0.2
   geolocator: ^7.1.0
-#  baato_navigation: ^0.0.1
-  navigationbaato: ^0.0.2
+
+  navigationbaato: ^0.0.5
 
 dev_dependencies:
   flutter_test:
