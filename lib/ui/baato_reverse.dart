@@ -30,8 +30,8 @@ class BaatoReversePage extends StatefulWidget {
 }
 
 class _BaatoReversePageState extends State<BaatoReversePage> {
-  MapboxMapController mapController;
-  PlaceResponse placeResponse;
+  late MapboxMapController mapController;
+  PlaceResponse? placeResponse;
 
   void _onMapCreated(MapboxMapController controller) {
     this.mapController = controller;
@@ -106,12 +106,12 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
   }
 
   _showAddressInfo(PlaceResponse response) {
-    if (response == null || response.data.isEmpty)
+    if (response == null || response.data!.isEmpty)
       print("No result found");
     else {
       final snackBar = SnackBar(
           content: Text(
-            response.data[0].name + "\n" + response.data[0].address,
+            response.data![0].name! + "\n" + response.data![0].address!,
             style: TextStyle(fontWeight: FontWeight.bold),
           ));
 

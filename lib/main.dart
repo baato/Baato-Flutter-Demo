@@ -13,7 +13,7 @@ void main() {
 
 class BaatoExampleApp extends StatelessWidget {
   /*Please add your baato-access-token here*/
-  static const String BAATO_ACCESS_TOKEN = "your-baato-access-token";
+  static const String BAATO_ACCESS_TOKEN = "bpk.TqpOIK5KflKR_zEI0ONEVdCZmwmfMye9i67nAjsGlMgQ";
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class _ListScreenState extends State<ListScreen> {
 class StringList extends StatelessWidget {
   final List<HomeMenu> homeMenus;
 
-  StringList({@required this.homeMenus});
+  StringList({required this.homeMenus});
 
   Widget build(BuildContext context) {
     return ListView.separated(

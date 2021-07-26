@@ -1,6 +1,6 @@
 class HomeMenu {
-  String title,subTitle;
-  int icon;
+  String? title,subTitle;
+  int? icon;
 
   HomeMenu({this.title, this.subTitle});
 

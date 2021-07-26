@@ -26,8 +26,8 @@ class SearchListViewExample extends StatefulWidget {
 }
 
 class _SearchListViewExampleState extends State<SearchListViewExample> {
-  List<Search> searchResults = <Search>[];
-  List<Search> tempList = <Search>[];
+  List<Search>? searchResults = <Search>[];
+  List<Search>? tempList = <Search>[];
   bool isLoading = false;
 
   @override
@@ -68,14 +68,14 @@ class _SearchListViewExampleState extends State<SearchListViewExample> {
       child: isLoading
           ? CircularProgressIndicator()
           : ListView.builder(
-              itemCount: searchResults.length,
+              itemCount: searchResults!.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(
-                    searchResults[index].name,
+                    searchResults![index].name!,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  subtitle: Text(searchResults[index].address),
+                  subtitle: Text(searchResults![index].address!),
                   leading: Icon(Icons.location_pin),
                 );
               }),
