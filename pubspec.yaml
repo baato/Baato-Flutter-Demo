@@ -34,7 +34,7 @@ dependencies:
   url_launcher: ^6.0.9
   mapbox_gl:
     git:
-      url: https://github.com/gabeschine/flutter-mapbox-gl.git
+      url: https://github.com/tobrun/flutter-mapbox-gl.git
 #  mapbox_gl_platform_interface:
 #      git:
 #        url: https://github.com/tobrun/flutter-mapbox-gl.git
