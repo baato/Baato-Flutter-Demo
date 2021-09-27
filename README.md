@@ -11,8 +11,7 @@ This demo app requires a Baato account and a Baato access token. Obtain your acc
  static const String BAATO_ACCESS_TOKEN = "your-baato-access-token";
 ```
 ### Note!
-If you encounter issue like `Could not get unknown property 'android' for project ':mapbox_gl' of type org.gradle.api.Project. `
-you can solve the issue as mentioned here in the [comment](https://github.com/tobrun/flutter-mapbox-gl/issues/640#issuecomment-857649226) or follow the steps mentioned in the **Android Configuration** section below:
+If you encounter issue like `Could not get unknown property 'android' for project ':mapbox_gl' of type org.gradle.api.Project.` or `SDK Registry token is null. See README.md for more information.` you can solve the issue as mentioned here in the [comment](https://github.com/tobrun/flutter-mapbox-gl/issues/640#issuecomment-857649226) or follow the steps mentioned in the **Android Configuration** section below:
 
 ## Android Configuration For Windows
 
