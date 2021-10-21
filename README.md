@@ -13,10 +13,10 @@ This demo app requires a Baato account and a Baato access token. Obtain your acc
 ### Note!
 If you encounter issue like `Could not get unknown property 'android' for project ':mapbox_gl' of type org.gradle.api.Project.` or `SDK Registry token is null. See README.md for more information.` you can solve the issue as mentioned here in the [comment](https://github.com/tobrun/flutter-mapbox-gl/issues/640#issuecomment-857649226) or follow the steps mentioned in the **Android Configuration** section below:
 
-## Android Configuration For Windows
+## Android Configuration For Windows & MAC
 
 1. Go to your [Mapbox account dashboard](https://account.mapbox.com/) and create an access token that has the `DOWNLOADS:READ` scope. **PLEASE NOTE: This is not the same as your production Mapbox API token.
-2. Set the System environment variable SDK_REGISTRY_TOKEN with the value of the private token taken from mapbox web page . Add for both System variables and User variable. Then restart the PC.
+2. Set the System environment variable SDK_REGISTRY_TOKEN with the value of the private token taken from mapbox web page . Add for both System variables and User variable. If you are confused with setting environment variable in Mac, please follow the steps mentioned in the **Setting env variables in Mac** below. Then restart the PC.
 3. Add the following code snippet into your module-level build.gradle where all the dependencies are defined. And build your app.
 ```code
     def token = System.getenv('SDK_REGISTRY_TOKEN')
@@ -25,3 +25,11 @@ If you encounter issue like `Could not get unknown property 'android' for projec
     }
 ```
 4. Voila! You are good to go.
+
+## Setting env variables in Mac
+
+1. Open Terminal
+2. Run touch ~/.bash_profile; open ~/.bash_profile
+3. In TextEdit, add  ```export SDK_REGISTRY_TOKEN="sk.tygkisdsosiosisoispfsppsofisopisospisopsifsofsofspo"```. Please add the token you that you got from above steps.
+4. Save the .bash_profile file and Quit (Command + Q) Text Edit.
+5. Run source ~/.bash_profile
