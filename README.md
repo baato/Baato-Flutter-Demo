@@ -33,3 +33,5 @@ If you encounter issue like `Could not get unknown property 'android' for projec
 3. In TextEdit, add  ```export SDK_REGISTRY_TOKEN="sk.tygkisdsosiosisoispfsppsofisopisospisopsifsofsofspo"```. Please add the token you that you got from above steps.
 4. Save the .bash_profile file and Quit (Command + Q) Text Edit.
 5. Run source ~/.bash_profile
+
+For more info: https://hathaway.cc/2008/06/how-to-edit-your-path-environment-variables-on-mac/
