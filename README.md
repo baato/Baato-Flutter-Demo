@@ -28,13 +28,19 @@ If you encounter issue like `Could not get unknown property 'android' for projec
 
 ## iOS and Android Configuration For Mac
 
-1. Go to your [Mapbox account dashboard](https://account.mapbox.com/) and create an access token that has the `DOWNLOADS:READ` scope. **PLEASE NOTE: This is not the same as your production Mapbox API token. Make sure to keep it private and do not insert it into any Info.plist file.** Create a file named `.netrc` in your home directory if it doesn’t already exist, then add the following lines to the end of the file:
-   ```
-   machine api.mapbox.com
-   login mapbox
-   password PRIVATE_MAPBOX_API_TOKEN
-   ```
-   where _PRIVATE_MAPBOX_API_TOKEN_ is your Mapbox API token with the `DOWNLOADS:READ` scope.
+1. Go to your [Mapbox account dashboard](https://account.mapbox.com/) and create an access token that has the `DOWNLOADS:READ` scope. **PLEASE NOTE: This is not the same as your production Mapbox API token. Make sure to keep it private and do not insert it into any Info.plist file.** Create a file named `.netrc` in your home directory if it doesn’t already exist:
+   ##### To create .netrc file
+     ```
+     touch .netrc
+     open .netrc
+     ```
+     ##### Now, add the following lines to the file
+     ```
+     machine api.mapbox.com
+     login mapbox
+     password PRIVATE_MAPBOX_API_TOKEN
+     ```
+     where _PRIVATE_MAPBOX_API_TOKEN_ is your Mapbox API token with the `DOWNLOADS:READ` scope.
 2. Set the System environment variable SDK_REGISTRY_TOKEN with the value of the private token taken from mapbox web page . If you are confused with setting environment variable in Mac, please follow the steps mentioned in the **Setting env variables in Mac** below. Then restart the PC.
 3. Some iOS version also require location settings in default, for that goto your `Info.plist file` and set `NSLocationWhenInUseUsageDescription` to:
 
