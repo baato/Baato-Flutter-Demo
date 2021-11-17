@@ -23,7 +23,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  MapboxMapController mapController;
+  MapboxMapController? mapController;
 
   void _onMapCreated(MapboxMapController controller) {
     this.mapController = controller;

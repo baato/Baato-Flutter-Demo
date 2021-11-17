@@ -30,12 +30,12 @@ class BaatoDirectionsPage extends StatefulWidget {
 }
 
 class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
-  MapboxMapController mapController;
-  RouteResponse routeResponse;
+  late MapboxMapController mapController;
+  RouteResponse? routeResponse;
   int _circleCount = 0;
 
   String baatoAccessToken = BaatoExampleApp.BAATO_ACCESS_TOKEN;
-  List<LatLng> _points = List<LatLng>();
+  List<LatLng> _points = new List.empty(growable: true);
 
   void _onMapCreated(MapboxMapController controller) {
     this.mapController = controller;
@@ -95,12 +95,12 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
   }
 
   _showRouteDetails(RouteResponse response) {
-    if (response == null || response.data.isEmpty)
+    if (response == null || response.data!.isEmpty)
       print("No result found");
     else {
       //decode the encoded polyline
       List<GeoCoord> geoCoordinates =
-          BaatoUtils().decodeEncodedPolyline(response.data[0].encodedPolyline);
+          BaatoUtils().decodeEncodedPolyline(response.data![0].encodedPolyline!);
 
       //convert the list into list of LatLng to be used by Mapbox
       List<LatLng> latLngList = <LatLng>[];
@@ -117,10 +117,10 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
             lineOpacity: 0.5),
       );
 
-      double distanceInKm = response.data[0].distanceInMeters / 1000;
+      double distanceInKm = response.data![0].distanceInMeters! / 1000;
       distanceInKm = double.parse((distanceInKm).toStringAsFixed(2));
 
-      double timeInSeconds = response.data[0].timeInMs / 1000;
+      double timeInSeconds = response.data![0].timeInMs! / 1000;
       String displayTime =
           Utils().giveMeTimeFromSecondsFormat(timeInSeconds.toInt());
 
