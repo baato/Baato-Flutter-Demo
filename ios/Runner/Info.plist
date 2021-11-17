@@ -16,6 +16,8 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>App explanation for While Use App: "Your location is used to locate you to enhance map experience."</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
