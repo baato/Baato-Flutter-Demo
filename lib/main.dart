@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/home_menu.dart';
+import 'package:flutter_app/ui/baato_location_picker.dart';
 import 'package:flutter_app/ui/baato_reverse.dart';
 import 'package:flutter_app/ui/baato_routing.dart';
 import 'package:flutter_app/ui/baato_search.dart';
@@ -13,7 +14,7 @@ void main() {
 
 class BaatoExampleApp extends StatelessWidget {
   /*Please add your baato-access-token here*/
-  static const String BAATO_ACCESS_TOKEN = "Your-Baato-Token";
+  static const String BAATO_ACCESS_TOKEN = "your-baato-access-token";
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +38,7 @@ class _ListScreenState extends State<ListScreen> {
     super.initState();
     homeMenus.add(new HomeMenu(title: "Search", subTitle: "Example for Baato Search API"));
     homeMenus.add(new HomeMenu(title: "Reverse", subTitle: "Example for Baato Reverse Search API"));
+    homeMenus.add(new HomeMenu(title: "Location Picker", subTitle: "Example-2 for Baato Reverse Search API"));
     homeMenus.add(new HomeMenu(title: "Directions", subTitle: "Example for Baato Directions API"));
     homeMenus.add(new HomeMenu(title: "Breeze Map", subTitle: "Example for Baato Breeze map style"));
     homeMenus.add(new HomeMenu(title: "Monochrome Map", subTitle: "Example for Baato Monochrome map style"));
@@ -88,22 +90,28 @@ class StringList extends StatelessWidget {
               case 2:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BaatoDirectionsExample()),
+                  MaterialPageRoute(builder: (context) => BaatoLocationPickerExample()),
                 );
                 break;
               case 3:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BreezeMapStyle()),
+                  MaterialPageRoute(builder: (context) => BaatoDirectionsExample()),
                 );
                 break;
               case 4:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MonochromeMapStyle()),
+                  MaterialPageRoute(builder: (context) => BreezeMapStyle()),
                 );
                 break;
               case 5:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MonochromeMapStyle()),
+                );
+                break;
+              case 6:
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => RetroMapStyle()),

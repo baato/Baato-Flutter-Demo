@@ -32,6 +32,7 @@ dependencies:
   http: ^0.13.3
   baato_api: ^1.0.1
   url_launcher: ^6.0.9
+  fluttertoast: ^8.0.8
   mapbox_gl:
     git:
       url: https://github.com/tobrun/flutter-mapbox-gl.git
