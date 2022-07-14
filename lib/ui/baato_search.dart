@@ -7,15 +7,12 @@ import '../main.dart';
 class BaatoSearchExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Baato Search"),
-          backgroundColor: Color.fromRGBO(8, 30, 42, 50),
-        ),
-        body: SearchListViewExample(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Baato Search"),
+        backgroundColor: Color.fromRGBO(8, 30, 42, 50),
       ),
-      debugShowCheckedModeBanner: false,
+      body: SearchListViewExample(),
     );
   }
 }
@@ -72,10 +69,10 @@ class _SearchListViewExampleState extends State<SearchListViewExample> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(
-                    searchResults![index].name!,
+                    searchResults![index].name,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  subtitle: Text(searchResults![index].address!),
+                  subtitle: Text(searchResults![index].address),
                   leading: Icon(Icons.location_pin),
                 );
               }),

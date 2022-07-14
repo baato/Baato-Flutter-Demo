@@ -5,21 +5,19 @@ import 'package:baato_api/models/place.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/main.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 class BaatoLocationPickerExample extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Baato Location Picker Example"),
-          backgroundColor: Color.fromRGBO(8, 30, 42, 50),
-        ),
-        body: BaatoReversePage(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Baato Location Picker Example"),
+        backgroundColor: Color.fromRGBO(8, 30, 42, 50),
       ),
-      debugShowCheckedModeBanner: false,
+      body: BaatoReversePage(),
     );
   }
 }
@@ -37,16 +35,11 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
   void _onMapCreated(MapboxMapController controller) {
     this.mapController = controller;
     //show initial information
-    final snackBar = SnackBar(
-      content: Text(
-        "Move the map to change the marker location and get location details of that point... ",
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      duration: Duration(seconds: 5),
-    );
+    Fluttertoast.showToast(
+        msg:
+            "Move the map to change the marker location and get location details of that point... ",
+        toastLength: Toast.LENGTH_LONG);
 
-    // Find the Scaffold in the widget tree and use it to show a SnackBar.
-    Scaffold.of(context).showSnackBar(snackBar);
     mapController.addListener(() {
       if (mapController.isCameraMoving && mapController.symbols.isNotEmpty)
         mapController.removeSymbol(mapController.symbols.first);
@@ -60,7 +53,7 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
     if (!mapController.isCameraMoving) {
       _requestLocationDetails(context, mapController.cameraPosition!.target,
           BaatoExampleApp.BAATO_ACCESS_TOKEN);
-      _showMarkerOntheTappedLocation(mapController.cameraPosition!.target);
+      _showMarkerOnTheTappedLocation(mapController.cameraPosition!.target);
     }
   }
 
@@ -91,7 +84,7 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
               ),
             );
             _requestLocationDetails(context, latLng, baatoAccessToken);
-            _showMarkerOntheTappedLocation(latLng);
+            _showMarkerOnTheTappedLocation(latLng);
           },
           initialCameraPosition: const CameraPosition(
               target: LatLng(27.7192873, 85.3238007), zoom: 14.0),
@@ -129,21 +122,16 @@ class _BaatoReversePageState extends State<BaatoReversePage> {
   }
 
   _showAddressInfo(PlaceResponse response) {
-    if (response == null || response.data!.isEmpty)
+    if (response.data!.isEmpty)
       print("No result found");
     else {
-      final snackBar = SnackBar(
-          content: Text(
-        response.data![0].name! + "\n" + response.data![0].address!,
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ));
-
-      // Find the Scaffold in the widget tree and use it to show a SnackBar.
-      Scaffold.of(context).showSnackBar(snackBar);
+      Fluttertoast.showToast(
+          msg:
+              "Name: ${response.data![0].name}\nAddress: ${response.data![0].address}");
     }
   }
 
-  void _showMarkerOntheTappedLocation(LatLng latLng) {
+  void _showMarkerOnTheTappedLocation(LatLng latLng) {
     if (mapController.symbols.isNotEmpty)
       mapController.removeSymbol(mapController.symbols.first);
     mapController.addSymbol(

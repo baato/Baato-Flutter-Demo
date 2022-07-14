@@ -1,17 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
 import '../main.dart';
-import 'dart:math';
 
 class BreezeMapStyle extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
-      debugShowCheckedModeBanner: false,
-    );
+    return MyHomePage();
   }
 }
 
@@ -77,9 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 onTap: () async {
-                  if (await canLaunch("https://www.openstreetmap.org/copyright") != null) {
-                    await launch("https://www.openstreetmap.org/copyright");
-                  }
+                  await launchUrlString("https://www.openstreetmap.org/copyright");
                 },
               ),
             ),

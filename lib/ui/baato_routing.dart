@@ -3,6 +3,7 @@ import 'package:baato_api/models/place.dart';
 import 'package:baato_api/models/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/models/utils.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 import '../main.dart';
@@ -11,15 +12,12 @@ class BaatoDirectionsExample extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Baato Directions"),
-          backgroundColor: Color.fromRGBO(8, 30, 42, 50),
-        ),
-        body: BaatoDirectionsPage(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Baato Directions"),
+        backgroundColor: Color.fromRGBO(8, 30, 42, 50),
       ),
-      debugShowCheckedModeBanner: false,
+      body: BaatoDirectionsPage(),
     );
   }
 }
@@ -41,16 +39,9 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
     this.mapController = controller;
 
     //show initial information
-    final snackBar = SnackBar(
-      content: Text(
-        "Tap on any two points in the map to get routes between them... ",
-        style: TextStyle(fontWeight: FontWeight.bold),
-      ),
-      duration: Duration(seconds: 12),
-    );
-
-    // Find the Scaffold in the widget tree and use it to show a SnackBar.
-    Scaffold.of(context).showSnackBar(snackBar);
+    Fluttertoast.showToast(
+        msg: "Tap on the map to select any two points to get routes between them...",
+        toastLength: Toast.LENGTH_LONG);
   }
 
   @override
@@ -82,8 +73,10 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
     BaatoRoute baatoRoute = BaatoRoute.initialize(
         accessToken: baatoAccessToken,
         points: points,
-        mode: "car", //can be 'bike', 'car', 'foot'
-        alternatives: false, //optional parameter
+        mode: "car",
+        //can be 'bike', 'car', 'foot'
+        alternatives: false,
+        //optional parameter
         instructions: false); //optional parameter
 
     //get routes between start and destination point
@@ -95,12 +88,12 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
   }
 
   _showRouteDetails(RouteResponse response) {
-    if (response == null || response.data!.isEmpty)
+    if (response.data!.isEmpty)
       print("No result found");
     else {
       //decode the encoded polyline
-      List<GeoCoord> geoCoordinates =
-          BaatoUtils().decodeEncodedPolyline(response.data![0].encodedPolyline!);
+      List<GeoCoord> geoCoordinates = BaatoUtils()
+          .decodeEncodedPolyline(response.data![0].encodedPolyline!);
 
       //convert the list into list of LatLng to be used by Mapbox
       List<LatLng> latLngList = <LatLng>[];
@@ -124,21 +117,9 @@ class _BaatoDirectionsPageState extends State<BaatoDirectionsPage> {
       String displayTime =
           Utils().giveMeTimeFromSecondsFormat(timeInSeconds.toInt());
 
-      //create a snack bar to show more details of the route
-      final snackBar = SnackBar(
-        content: Text(
-          "Distance: " +
-              distanceInKm.toString() +
-              " km\n" +
-              "Time: " +
-              displayTime,
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        duration: Duration(seconds: 10),
-      );
-
-      // Find the Scaffold in the widget tree and use it to show a SnackBar.
-      Scaffold.of(context).showSnackBar(snackBar);
+      Fluttertoast.showToast(
+          msg: "Distance: ${distanceInKm.toString()}km\nTime: $displayTime",
+          toastLength: Toast.LENGTH_LONG);
     }
   }
 
