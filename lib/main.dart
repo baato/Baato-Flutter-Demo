@@ -36,13 +36,22 @@ class _ListScreenState extends State<ListScreen> {
   @override
   void initState() {
     super.initState();
-    homeMenus.add(new HomeMenu(title: "Search", subTitle: "Example for Baato Search API"));
-    homeMenus.add(new HomeMenu(title: "Reverse", subTitle: "Example for Baato Reverse Search API"));
-    homeMenus.add(new HomeMenu(title: "Location Picker", subTitle: "Example-2 for Baato Reverse Search API"));
-    homeMenus.add(new HomeMenu(title: "Directions", subTitle: "Example for Baato Directions API"));
-    homeMenus.add(new HomeMenu(title: "Breeze Map", subTitle: "Example for Baato Breeze map style"));
-    homeMenus.add(new HomeMenu(title: "Monochrome Map", subTitle: "Example for Baato Monochrome map style"));
-    homeMenus.add(new HomeMenu(title: "Retro Map", subTitle: "Example for Baato Retro map style API"));
+    homeMenus.add(new HomeMenu(
+        title: "Search", subTitle: "Example for Baato Search API"));
+    homeMenus.add(new HomeMenu(
+        title: "Reverse", subTitle: "Example for Baato Reverse Search API"));
+    homeMenus.add(new HomeMenu(
+        title: "Location Picker",
+        subTitle: "Example-2 for Baato Reverse Search API"));
+    homeMenus.add(new HomeMenu(
+        title: "Directions", subTitle: "Example for Baato Directions API"));
+    homeMenus.add(new HomeMenu(
+        title: "Breeze Map", subTitle: "Example for Baato Breeze map style"));
+    homeMenus.add(new HomeMenu(
+        title: "Monochrome Map",
+        subTitle: "Example for Baato Monochrome map style"));
+    homeMenus.add(new HomeMenu(
+        title: "Retro Map", subTitle: "Example for Baato Retro map style API"));
   }
 
   @override
@@ -84,19 +93,22 @@ class StringList extends StatelessWidget {
               case 1:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BaatoReverseExample()),
+                  MaterialPageRoute(
+                      builder: (context) => BaatoReverseExample()),
                 );
                 break;
               case 2:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BaatoLocationPickerExample()),
+                  MaterialPageRoute(
+                      builder: (context) => BaatoLocationPickerExample()),
                 );
                 break;
               case 3:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BaatoDirectionsExample()),
+                  MaterialPageRoute(
+                      builder: (context) => BaatoDirectionsExample()),
                 );
                 break;
               case 4:
